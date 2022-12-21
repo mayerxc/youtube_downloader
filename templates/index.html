@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YouTube Downloader</title>
-</head>
-<body>
-    <h1>Hello</h1>
-    <label for="YouTube">Provide YouTube Link</label>
-    <input type="text" name="YouTube">
-    <input type="button" onclick="" value="submit">
-</body>
+    <script defer>
+      function download() {
+        const link = document.getElementById('youtubeInput').value;
+        window.open(`/download/?youtube=${link}`).focus;
+        // const encodedLink = encodeURIComponent(link);
+        // console.log('Link text', link);
+        // console.log('Link encoded', encodedLink);
+        // window.open(`/download/?youtube=${encodedLink}`).focus;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>
+      <label for="YouTube">Provide YouTube Link</label>
+    </h1>
+    <input type="text" id="youtubeInput" name="YouTube" />
+    <input type="button" onclick="download()" value="submit" />
+  </body>
 </html>

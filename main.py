@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, request
 from pytube import YouTube
 from io import BytesIO
 
@@ -7,20 +7,27 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("./index.html")
+    return render_template("index.html")
 
 
-@app.route("/download/<youtube_link>")
-def download(youtube_link):
+# @app.route("/download/<youtube_link>")
+# def download(youtube_link):
+@app.route("/download/")
+def download():
+    youtube_link = request.args.get("youtube")
+    print("youtube link", youtube_link)
+    # return {"youtubeLink": youtube_link}
     buffer = BytesIO()
     video = (
         YouTube(youtube_link).streams.filter(file_extension="mp4", res="720p").first()
     )
+    title = video.title
     video.stream_to_buffer(buffer)
     buffer.seek(0)
     return send_file(
         buffer,
         as_attachment=True,
-        attachment_filename="video.mp4",
+        # attachment_filename="video.mp4",
+        download_name=f"{title}.mp4",
         mimetype="video/mp4",
     )
