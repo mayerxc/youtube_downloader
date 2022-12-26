@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YouTube Downloader</title>
-    <script defer>
-      function download() {
-        const link = document.getElementById('youtubeInput').value;
-        window.open(`/download/?youtube=${link}`).focus;
-        // const encodedLink = encodeURIComponent(link);
-        // console.log('Link text', link);
-        // console.log('Link encoded', encodedLink);
-        // window.open(`/download/?youtube=${encodedLink}`).focus;
-      }
-    </script>
-  </head>
-  <body>
-    <h1>
-      <label for="YouTube">Provide YouTube Link</label>
-    </h1>
-    <input type="text" id="youtubeInput" name="YouTube" />
-    <input type="button" onclick="download()" value="submit" />
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Downloader</title>
+  <style>
+    #youtubeInput {
+      width: 50vmax;
+      min-width: 150px;
+    }
+  </style>
+  <script defer>
+    function download() {
+      const link = document.getElementById('youtubeInput').value;
+      window.open(`/download/?youtube=${link}`).focus;
+
+      // 2 ways to encode URI or URLs to send as a path variable: encode() or encodeURIComponent()
+      // (because it has a ?variable=variable it doesn't take that as part of the path)
+      // const encodedLink = encodeURIComponent(link);
+      // const encodedLink = escape(link)
+      // console.log('Link text', link);
+      // console.log('Link encoded', encodedLink);
+      // window.open(`/download/${encodedLink}`).focus;
+    }
+  </script>
+</head>
+
+<body>
+  <h1>
+    <label for="YouTube">Provide YouTube Link</label>
+  </h1>
+  <input type="text" id="youtubeInput" name="YouTube" />
+  <input type="button" onclick="download()" value="submit" />
+</body>
+
 </html>
