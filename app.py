@@ -12,9 +12,9 @@ def index():
 
 @app.route("/download/")
 def download():
+    buffer = BytesIO()
     youtube_link = request.args.get("youtube")
     print("youtube link", youtube_link)
-    buffer = BytesIO()
     video = (
         YouTube(youtube_link).streams.filter(file_extension="mp4", res="720p").first()
     )
@@ -28,6 +28,20 @@ def download():
         mimetype="video/mp4",
     )
 
+@app.route("/download-audio/")
+def download_audio():
+    buffer = BytesIO()
+    audio_link = request.args.get("audio")
+    audio = YouTube(audio_link).streams.get_audio_only()
+    title = audio.title
+    audio.stream_to_buffer(buffer)
+    buffer.seek(0)
+    return send_file(
+        buffer,
+        as_attachment=True,
+        download_name=f"{title}.mp4",
+        mimetype="video/mp4",
+    )
 
 
 @app.route("/download2/<path:youtube_link2>")
